@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Imports add function from add_0 module and prints the addition."""
+"""Imports the add function and prints the result of an addition."""
 from add_0 import add
 
 if __name__ == "__main__":
