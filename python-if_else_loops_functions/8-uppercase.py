@@ -8,5 +8,5 @@ def uppercase(str):
     Args:
         str: the string to print in uppercase
     """
-    print("".join(chr(ord(c) - 32) if 97 <= ord(c) <= 122 else c
-                  for c in str))
+    print("{}".format("".join(
+        chr(ord(c) - 32) if 97 <= ord(c) <= 122 else c for c in str)))
