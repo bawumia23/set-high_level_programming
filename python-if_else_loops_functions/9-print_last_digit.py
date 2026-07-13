@@ -9,8 +9,8 @@ def print_last_digit(number):
         number: the number to process
 
     Returns:
-        The last digit of number
+        The last digit of number (always non-negative)
     """
-    last_digit = number - int(number / 10) * 10
+    last_digit = abs(number) % 10
     print(last_digit, end="")
     return last_digit
