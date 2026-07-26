@@ -1,0 +1,37 @@
+Test cases for 1-my_list.py
+
+Load the class:
+
+    >>> MyList = __import__('1-my_list').MyList
+
+Basic usage: append integers and print sorted, without mutating the list:
+
+    >>> my_list = MyList()
+    >>> my_list.append(1)
+    >>> my_list.append(4)
+    >>> my_list.append(2)
+    >>> my_list.append(3)
+    >>> my_list.append(5)
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+Works on an empty list:
+
+    >>> empty = MyList()
+    >>> empty.print_sorted()
+    []
+
+Works with negative and duplicate values:
+
+    >>> nums = MyList([3, -1, 2, -1, 0])
+    >>> nums.print_sorted()
+    [-1, -1, 0, 2, 3]
+
+MyList is still a regular list:
+
+    >>> isinstance(MyList(), list)
+    True
