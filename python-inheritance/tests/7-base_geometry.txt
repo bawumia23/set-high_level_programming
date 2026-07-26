@@ -1,9 +1,11 @@
 Test cases for 7-base_geometry.py
 
-Load the class:
+Load the class and check instantiation:
 
     >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
     >>> bg = BaseGeometry()
+    >>> bg.__class__.__name__
+    'BaseGeometry'
 
 area() always raises, since it must be overridden:
 
@@ -11,38 +13,74 @@ area() always raises, since it must be overridden:
     Traceback (most recent call last):
     Exception: area() is not implemented
 
+integer_validator() called with no arguments raises TypeError:
+
+    >>> bg.integer_validator() # doctest: +ELLIPSIS
+    Traceback (most recent call last):
+    TypeError: ...
+
+integer_validator() called with only a name raises TypeError:
+
+    >>> bg.integer_validator("age") # doctest: +ELLIPSIS
+    Traceback (most recent call last):
+    TypeError: ...
+
 Valid positive integers pass silently:
 
     >>> bg.integer_validator("my_int", 12)
     >>> bg.integer_validator("width", 89)
-    >>> bg.integer_validator("height", 1)
+    >>> bg.integer_validator("age", 1)
 
-Non-integer values raise TypeError:
-
-    >>> bg.integer_validator("name", "John")
-    Traceback (most recent call last):
-    TypeError: name must be an integer
-
-    >>> bg.integer_validator("name", 3.14)
-    Traceback (most recent call last):
-    TypeError: name must be an integer
-
-    >>> bg.integer_validator("name", None)
-    Traceback (most recent call last):
-    TypeError: name must be an integer
-
-Booleans are not accepted as integers:
-
-    >>> bg.integer_validator("flag", True)
-    Traceback (most recent call last):
-    TypeError: flag must be an integer
-
-Values that are 0 or negative raise ValueError:
+Zero or negative values raise ValueError:
 
     >>> bg.integer_validator("age", 0)
+    Traceback (most recent call last):
+    ValueError: age must be greater than 0
+
+    >>> bg.integer_validator("age", -4)
     Traceback (most recent call last):
     ValueError: age must be greater than 0
 
     >>> bg.integer_validator("distance", -4)
     Traceback (most recent call last):
     ValueError: distance must be greater than 0
+
+Non-integer values raise TypeError, for a variety of types:
+
+    >>> bg.integer_validator("name", "John")
+    Traceback (most recent call last):
+    TypeError: name must be an integer
+
+    >>> bg.integer_validator("age", "4")
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+    >>> bg.integer_validator("age", 13.5)
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+    >>> bg.integer_validator("age", (4,))
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+    >>> bg.integer_validator("age", [3])
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+    >>> bg.integer_validator("age", {3, 4})
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+    >>> bg.integer_validator("age", None)
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+Booleans are not accepted as integers either:
+
+    >>> bg.integer_validator("age", True)
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+    >>> bg.integer_validator("flag", False)
+    Traceback (most recent call last):
+    TypeError: flag must be an integer
