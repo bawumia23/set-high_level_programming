@@ -1,42 +1,41 @@
 #!/usr/bin/python3
-"""Module to parse logs and compute metrics."""
+"""Log parsing module."""
+
 import sys
 
-
-def print_stats(total_size, status_codes):
-    """Prints the computed statistics.
-
-    Args:
-        total_size: The total file size.
-        status_codes: A dictionary of status code counts.
-    """
-    print("File size: {}".format(total_size))
-    for code in sorted(status_codes.keys()):
-        if status_codes[code] > 0:
-            print("{}: {}".format(code, status_codes[code]))
-
-
+status_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
+counts = {code: 0 for code in status_codes}
 total_size = 0
-status_codes = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
-count = 0
+line_count = 0
+
+
+def print_stats():
+    """Print accumulated statistics."""
+    print("File size: {}".format(total_size))
+    for code in status_codes:
+        if counts[code] > 0:
+            print("{}: {}".format(code, counts[code]))
+
 
 try:
     for line in sys.stdin:
+        line_count += 1
         parts = line.split()
-        if len(parts) >= 2:
-            try:
-                status = int(parts[-2])
-                size = int(parts[-1])
-                if status in status_codes:
-                    status_codes[status] += 1
-                total_size += size
-            except (ValueError, IndexError):
-                pass
-        count += 1
-        if count % 10 == 0:
-            print_stats(total_size, status_codes)
-except KeyboardInterrupt:
-    print_stats(total_size, status_codes)
-    raise
 
-print_stats(total_size, status_codes)
+        if len(parts) >= 2:
+            status = parts[-2]
+            if status in counts:
+                counts[status] += 1
+            try:
+                total_size += int(parts[-1])
+            except ValueError:
+                pass
+
+        if line_count % 10 == 0:
+            print_stats()
+
+    print_stats()
+
+except KeyboardInterrupt:
+    print_stats()
+    raise
