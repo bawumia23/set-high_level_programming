@@ -43,4 +43,4 @@ python3 -c "from pascal_triangle import pascal_triangle; print(pascal_triangle(5
 
 ## Author
 
-[Your Name]
+[Adamu Tajudeen Bawumia]
