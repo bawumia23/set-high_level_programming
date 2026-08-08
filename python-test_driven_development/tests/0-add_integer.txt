@@ -12,6 +12,16 @@ Test with default value for b:
 >>> add_integer(2)
 100
 
+Test with missing one argument:
+>>> add_integer(1)
+99
+
+Test with missing two arguments:
+>>> add_integer()
+Traceback (most recent call last):
+    ...
+TypeError: add_integer() missing 1 required positional argument: 'a'
+
 Test with floats (cast to int):
 >>> add_integer(100.3, -2)
 98
@@ -39,3 +49,9 @@ Test with negative floats:
 Test with large numbers:
 >>> add_integer(1000000, 2000000)
 3000000
+
+Test with float NaN:
+>>> add_integer(float('nan'))
+Traceback (most recent call last):
+    ...
+ValueError: cannot convert float NaN to integer
