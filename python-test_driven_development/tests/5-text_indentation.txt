@@ -1,0 +1,45 @@
+>>> text_indentation = __import__('5-text_indentation').text_indentation
+
+Test basic text with period:
+>>> text_indentation("Hello. World")
+Hello.
+<BLANKLINE>
+World
+
+Test with question mark:
+>>> text_indentation("How are you? Fine thanks")
+How are you?
+<BLANKLINE>
+Fine thanks
+
+Test with colon:
+>>> text_indentation("Note: this is important")
+Note:
+<BLANKLINE>
+this is important
+
+Test with all delimiters:
+>>> text_indentation("Hi. How? Good: yes")
+Hi.
+<BLANKLINE>
+How?
+<BLANKLINE>
+Good:
+<BLANKLINE>
+yes
+
+Test with spaces after delimiter:
+>>> text_indentation("Hello.   World")
+Hello.
+<BLANKLINE>
+World
+
+Test invalid type:
+>>> text_indentation(42)
+Traceback (most recent call last):
+    ...
+TypeError: text must be a string
+
+Test empty string:
+>>> text_indentation("")
+

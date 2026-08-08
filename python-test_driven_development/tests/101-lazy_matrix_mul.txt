@@ -1,0 +1,33 @@
+>>> lazy_matrix_mul = __import__('101-lazy_matrix_mul').lazy_matrix_mul
+
+Test basic 2x2 multiplication:
+>>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]])
+array([[ 7, 10],
+       [15, 22]])
+
+Test 1x2 by 2x2 multiplication:
+>>> lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6]])
+array([[13, 16]])
+
+Test with float values:
+>>> lazy_matrix_mul([[1.5, 2.5], [3.5, 4.5]], [[1.0, 2.0], [3.0, 4.0]])
+array([[ 9., 13.],
+       [17., 25.]])
+
+Test incompatible matrices:
+>>> lazy_matrix_mul([[1, 2, 3], [4, 5, 6]], [[1, 2], [3, 4]])
+Traceback (most recent call last):
+    ...
+ValueError: matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 2 is different from 3)
+
+Test empty matrix:
+>>> lazy_matrix_mul([[]], [[1, 2]])
+Traceback (most recent call last):
+    ...
+ValueError: matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 1 is different from 0)
+
+Test non-list input:
+>>> lazy_matrix_mul("hello", [[1, 2]])
+Traceback (most recent call last):
+    ...
+numpy._core._exceptions._UFuncNoLoopError: ufunc 'matmul' did not contain a loop with signature matching types (dtype('<U5'), dtype('int64')) -> None
