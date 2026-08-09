@@ -6,6 +6,7 @@ helpers.
 """
 import json
 import csv
+import turtle
 
 
 class Base:
@@ -126,3 +127,35 @@ class Base:
                 return [cls.create(**d) for d in list_dicts]
         except IOError:
             return []
+
+    @staticmethod
+    def draw(list_rectangles, list_squares):
+        """Open a window and draw every Rectangle and Square.
+
+        Args:
+            list_rectangles (list): A list of Rectangle instances.
+            list_squares (list): A list of Square instances.
+        """
+        turt = turtle.Turtle()
+        turt.screen.bgcolor("#b7312c")
+        turt.pensize(3)
+        turt.shape("turtle")
+
+        colors = ["#ecf0f1", "#f1c40f", "#2ecc71", "#3498db",
+                  "#9b59b6", "#e67e22"]
+
+        all_shapes = list(list_rectangles) + list(list_squares)
+        for index, shape in enumerate(all_shapes):
+            turt.color(colors[index % len(colors)])
+            turt.showturtle()
+            turt.up()
+            turt.goto(shape.x, shape.y)
+            turt.down()
+            for _ in range(2):
+                turt.forward(shape.width)
+                turt.left(90)
+                turt.forward(shape.height)
+                turt.left(90)
+            turt.hideturtle()
+
+        turtle.exitonclick()
