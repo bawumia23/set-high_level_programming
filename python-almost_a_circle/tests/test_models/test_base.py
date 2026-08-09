@@ -39,11 +39,27 @@ class TestBase(unittest.TestCase):
         self.assertIsInstance(result, str)
         self.assertEqual(Base.from_json_string(result), list_dicts)
 
+    def test_to_json_string_one_dict(self):
+        result = Base.to_json_string([{"id": 12}])
+        self.assertEqual(result, '[{"id": 12}]')
+
+    def test_to_json_string_returns_str(self):
+        result = Base.to_json_string([{"id": 12}])
+        self.assertIsInstance(result, str)
+
     def test_from_json_string_none(self):
         self.assertEqual(Base.from_json_string(None), [])
 
     def test_from_json_string_empty(self):
-        self.assertEqual(Base.from_json_string(""), [])
+        self.assertEqual(Base.from_json_string("[]"), [])
+
+    def test_from_json_string_one_dict(self):
+        result = Base.from_json_string('[{ "id": 89 }]')
+        self.assertEqual(result, [{"id": 89}])
+
+    def test_from_json_string_returns_list(self):
+        result = Base.from_json_string('[{ "id": 89 }]')
+        self.assertIsInstance(result, list)
 
     def test_create_rectangle(self):
         r1 = Rectangle(3, 5, 1)
