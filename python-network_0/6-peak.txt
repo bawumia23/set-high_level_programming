@@ -1,0 +1,2 @@
+O(log(n))
+Binary search halves the search space on each iteration.
